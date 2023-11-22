@@ -6,6 +6,7 @@ import { UserProvider } from "./context/UserContext";
 import Login from "./components/login";
 import Register from "./components/Register";
 import Home from "./components/Home";
+import Profile from "./components/Profile";
 
 function App() {
   useEffect(() => {}, []);
@@ -15,10 +16,9 @@ function App() {
       <UserProvider>
         <Routes>
           <Route index element={<Login />} />
-          <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="home" element={<Home />} />
-          <Route path="profile" element={<></>} />
+          <Route path="profile" element={<Profile/>} />
           <Route path="posts" element={<></>}>
             <Route index element={<></>} />
             <Route path="post/:id" element={<></>} />
