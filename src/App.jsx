@@ -4,24 +4,19 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ressetDB from "./resetDB";
+import Register from "./components/Register";
+import Home from "./components/Home";
 
 function App() {
-  // useEffect(() => {
-  //  ressetDB("users");
-  // ressetDB("posts");
-  // await ressetDB("comments");
-  //  ressetDB("albums");
-  //  ressetDB("photos");
-  // ressetDB("todos");
-  // }, []);
+  useEffect(() => {}, []);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route index element={<h1>Log In</h1>} />
         <Route path="login" element={<></>} />
-        <Route path="register" element={<></>} />
-        <Route path="home" element={<></>} />
+        <Route path="register" element={<Register />} />
+        <Route path="home" element={<Home />} />
         <Route path="profile" element={<></>} />
         <Route path="posts" element={<></>}>
           <Route index element={<></>} />
