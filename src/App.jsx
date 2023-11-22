@@ -15,7 +15,7 @@ function App() {
       <UserProvider>
         <Routes>
           <Route index element={<Login />} />
-          <Route path="login" element={<></>} />
+          <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="home" element={<Home />} />
           <Route path="profile" element={<></>} />
