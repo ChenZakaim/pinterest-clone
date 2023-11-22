@@ -1,19 +1,20 @@
 import { NavLink, Outlet } from "react-router-dom";
 
-function Footer() {
+function Header() {
   return (
     <>
+      <nav>
+        <NavLink to="/profile">profile</NavLink>- - -
+        <NavLink to="/coments">coments</NavLink>- - -
+        <NavLink to="/posts">posts</NavLink>- - -
+        {/* <NavLink to="/search">profile</NavLink> */}
+        <NavLink to="/albums">albums</NavLink>- - -
+        <NavLink to="/home">home</NavLink>
+      </nav>
       <main>
         <Outlet />
       </main>
-      <nav>
-        <NavLink to="/profile">profile</NavLink>
-        <NavLink to="/coments">profile</NavLink>
-        <NavLink to="/posts">profile</NavLink>
-        {/* <NavLink to="/search">profile</NavLink> */}
-        <NavLink to="/home">profile</NavLink>
-      </nav>
     </>
   );
 }
-export default Footer;
+export default Header;

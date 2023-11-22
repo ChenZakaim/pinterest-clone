@@ -86,7 +86,7 @@ function Register() {
       <input
         value={newUser.website}
         type="text"
-        placeholder="website"
+        placeholder="pasword"
         onChange={(event) => {
           handleChange("website", event);
         }}

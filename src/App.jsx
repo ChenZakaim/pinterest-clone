@@ -8,6 +8,8 @@ import Register from "./components/Register";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Header from "./components/Header";
+import Albums from "./components/Albums/Albums";
+import Photo from "./components/Albums/Photo";
 
 function App() {
   useEffect(() => {}, []);
@@ -25,12 +27,11 @@ function App() {
               <Route index element={<></>} />
               <Route path="post/:id" element={<></>} />
             </Route>
-            <Route path="albums" element={<></>}>
+            <Route path="albums" element={<Albums />}>
               <Route index element={<></>} />
-              <Route path=":id" element={<></>}>
-                <Route path="photo/:id" element={<></>} />
-              </Route>
+              <Route path=":id" element={<></>}></Route>
             </Route>
+            <Route path="photo/:id" element={<Photo />} />
           </Route>
           <Route path="to-do" element={<></>} />
           <Route path="" element={<></>} />
