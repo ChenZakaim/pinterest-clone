@@ -9,8 +9,8 @@ function Profile() {
     });
   }
   function submitEditInfoForm() {
-
     
+
     alert("changes added successfully");
   }
   return (
