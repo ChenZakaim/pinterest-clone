@@ -1,9 +1,12 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
+import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [newUser, setNewUser] = useState({ username: "", password: "" });
   const userContext = useContext(UserContext);
+  const navigate = useNavigate();
   function submitLogInForm() {
     // try {
     // // check if server if user exists
@@ -20,46 +23,53 @@ function Login() {
     // }i
   }
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        submitLogInForm();
-      }}
-    >
-      <h1>Log In</h1>
-      <label htmlFor="username">Username: </label>
-      <br />
-      <input
-        onChange={(e) => {
-          setNewUser((prev) => {
-            return { ...prev, username: e.target.value };
-          });
+    <>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          submitLogInForm();
         }}
-        type="text"
-        value={newUser.username}
-        id="username"
-        name="username"
-      />
-      <br />
+      >
+        <h1>Log In</h1>
+        <label htmlFor="username">Username: </label>
+        <br />
+        <input
+          onChange={(e) => {
+            setNewUser((prev) => {
+              return { ...prev, username: e.target.value };
+            });
+          }}
+          type="text"
+          value={newUser.username}
+          id="username"
+          name="username"
+        />
+        <br />
+        <br />
+
+        <label htmlFor="password">Password: </label>
+        <br />
+        <input
+          onChange={(e) => {
+            setNewUser((prev) => {
+              return { ...prev, password: e.target.value };
+            });
+          }}
+          type="text"
+          id="password"
+          value={newUser.password}
+          name="password"
+        />
+        <br />
+        <br />
+        <input type="submit" value="log in" />
+      </form>
       <br />
 
-      <label htmlFor="password">Password: </label>
-      <br />
-      <input
-        onChange={(e) => {
-          setNewUser((prev) => {
-            return { ...prev, password: e.target.value };
-          });
-        }}
-        type="text"
-        id="password"
-        value={newUser.password}
-        name="password"
-      />
-      <br />
-      <br />
-      <input type="submit" value="log in" />
-    </form>
+      <hr />
+      <h4>-OR-</h4>
+      <Button label="register" onClick={() => navigate("register")} />
+    </>
   );
 }
 export default Login;
