@@ -1,7 +1,7 @@
-const getUserBy = async (username) => {
+export default async function getUserByUsername(username) {
   try {
     const response = await fetch(
-      `http://localhost:3000/users?${(username = username)}`
+      `http://localhost:3000/users?username=${username}`
     );
 
     if (!response.ok) {
@@ -12,10 +12,12 @@ const getUserBy = async (username) => {
     }
 
     const result = await response.json();
-    console.log("Data posted successfully:", result);
-    //app the stat user
-    navigate("/home");
+    // if (!result?.username) {
+    //   console.log("yyy");
+    // }
+    return result;
   } catch (error) {
     console.error("Error posting data:", error);
+    return error;
   }
-};
+}

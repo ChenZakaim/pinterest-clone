@@ -1,15 +1,18 @@
-import React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import the hook
+import React, { useState, useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import getUserByUsername from "../fetchHandl";
 
 function Register() {
+  const { setCurrentUser } = useContext(UserContext);
+
   const [newUser, setNewUser] = useState({
     name: "",
     username: "",
     website: "",
   });
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate();
 
   const handleChange = (key, event) => {
     setNewUser((prev) => {
@@ -31,6 +34,13 @@ function Register() {
       return;
     }
 
+    const isExist = await getUserByUsername(newUser.username);
+    console.log(isExist);
+    if (isExist[0]) {
+      console.log("found");
+      setError("The username alredy exist");
+      return;
+    }
     try {
       const response = await fetch("http://localhost:3000/users", {
         method: "POST",
@@ -46,7 +56,7 @@ function Register() {
 
       const result = await response.json();
       console.log("Data posted successfully:", result);
-      //app the stat user
+      setCurrentUser(result);
       navigate("/home");
     } catch (error) {
       console.error("Error posting data:", error);
