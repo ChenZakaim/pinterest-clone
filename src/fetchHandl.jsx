@@ -12,9 +12,6 @@ export default async function getUserByUsername(username) {
     }
 
     const result = await response.json();
-    // if (!result?.username) {
-    //   console.log("yyy");
-    // }
     return result;
   } catch (error) {
     console.error("Error posting data:", error);
