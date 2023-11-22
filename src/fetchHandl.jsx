@@ -18,3 +18,25 @@ export default async function getUserByUsername(username) {
     return error;
   }
 }
+export async function updateItemInfo(type, itemId, newItem) {
+  try {
+    const response = await fetch(`http://localhost:3000/${type}/${itemId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(newItem),
+    });
+    if (!response.ok) {
+      if (response.status === 404) {
+        return "item not found";
+      }
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const responseult = await response.json();
+    // return result;
+  } catch (error) {
+    console.error("Error posting data:", error);
+    return error;
+  }
+}
