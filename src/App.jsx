@@ -10,6 +10,7 @@ import Profile from "./components/Profile";
 import Header from "./components/Header";
 import Albums from "./components/Albums/Albums";
 import Photo from "./components/Albums/Photo";
+import Todos from "./components/Todos";
 
 function App() {
   useEffect(() => {}, []);
@@ -32,8 +33,8 @@ function App() {
               <Route path=":id" element={<></>}></Route>
             </Route>
             <Route path="photo/:id" element={<Photo />} />
+            <Route path="todos" element={<Todos />} />
           </Route>
-          <Route path="to-do" element={<></>} />
           <Route path="" element={<></>} />
         </Routes>
       </UserProvider>

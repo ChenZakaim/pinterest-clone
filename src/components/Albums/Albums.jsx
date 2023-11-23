@@ -7,13 +7,15 @@ const Albums = () => {
   const [albums, setAlbums] = useState(null);
   const [myPhotos, setMyPhotos] = useState();
   const { user } = useContext(UserContext);
+  console.log("user: ", user);
   const { id } = useParams();
+  console.log("id: ", id);
 
   useEffect(() => {
     const fetchAlbumData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/albums?userId=${9}`
+          `http://localhost:3000/albums?userId=${user.id}`
         );
         const data = await response.json();
         setAlbums(data);
@@ -70,12 +72,14 @@ const Albums = () => {
 
         <br />
 
-        <nav style={{ display: "flex" }}>
+        <nav style={{ display: "flex", justifyContent: "center" }}>
           {albums.map((album, key) => {
+            const title = album.title;
+            const words = title.split(" ");
+            const firstTwoWords = words.slice(0, 2).join(" ");
             return (
-              <div key={key}>
-                <NavLink to={`${album.id}`}>{album.title}</NavLink>
-                {console.log("album.title: ", album.title)};
+              <div key={key} style={{ margin: "0 10px" }}>
+                *<NavLink to={`${album.id}`}>{firstTwoWords}</NavLink>*
               </div>
             );
           })}

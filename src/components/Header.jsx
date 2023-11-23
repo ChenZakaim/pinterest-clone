@@ -9,6 +9,7 @@ function Header() {
         <NavLink to="/posts">posts</NavLink>- - -
         {/* <NavLink to="/search">profile</NavLink> */}
         <NavLink to="/albums">albums</NavLink>- - -
+        <NavLink to="/todos">todos</NavLink>- - -
         <NavLink to="/home">home</NavLink>
       </nav>
       <main>
