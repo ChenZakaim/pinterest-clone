@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import deleteItemByItsId from "../fetchHandl";
 import { handleFetch } from "../fetchHandl";
+import useArrayExtendedState from "../../hooks/useArrayExtendedState";
 
 function Todos() {
   const { user } = useContext(UserContext);
@@ -10,21 +10,21 @@ function Todos() {
     title: "",
     completed: false,
   };
-  const [todos, setTodos] = useState(null);
+  //   const [todos, setTodos] = useState(null);
+  const [todos, setTodos, addTodo, deletTodo, uppTodo] =
+    useArrayExtendedState();
   const [newTodo, setNewTodo] = useState({ ...emptyToDo });
+  const [serch, setSerch] = useState("");
   useEffect(() => {
     try {
       handleFetch(`/todos?userId=${user.id}`, "GET", undefined).then((data) => {
-        // console.log("data: ", data);
         setTodos(data);
       });
     } catch (error) {
       console.error("Error fetching album data:", error);
     }
   }, []);
-  //   console.log(newTodo);
   const handleCheckboxChange = async (todoId) => {
-    // Find the todo with the given id
     const updatedTodos = todos.map((todo) =>
       todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
     );
@@ -59,8 +59,39 @@ function Todos() {
     setNewTodo({ ...emptyToDo });
   };
 
+  const hendelSerch = (serchUrl) => {
+    try {
+      handleFetch(`/todos?userId=${user.id}${serchUrl}`, "GET", undefined).then(
+        (data) => {
+          // console.log("data: ", data);
+          setTodos(data);
+          setSerch("");
+        }
+      );
+    } catch (error) {
+      console.error("Error fetching album data:", error);
+    }
+  };
+
+  function genNewSearchParamString(key, value) {
+    const sp = new URLSearchParams(searchParams);
+    if (value === null) {
+      sp.delete(key);
+    } else {
+      sp.set(key, value);
+    }
+    return `?${sp.toString()}`;
+  }
+
   return (
     <div>
+      <input
+        type="text"
+        value={serch}
+        onChange={(e) => setSerch(e.target.value)}
+      />
+      <button onClick={() => hendelSerch(`&&title=${serch}`)}>serch</button>
+      <button onClick={() => hendelSerch("")}>X</button>
       {todos.map((todo, key) => (
         <div key={key}>
           <input
@@ -72,11 +103,10 @@ function Todos() {
           <label htmlFor={`todo-${todo.id}`}>{todo.title}</label>
           <button
             onClick={() => {
-              console.log("hloo");
-              deleteItemByItsId("todos", todo.id, setTodos);
+              deletTodo(todo.id);
             }}
           >
-            delet
+            x
           </button>
         </div>
       ))}

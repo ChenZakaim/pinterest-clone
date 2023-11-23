@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import getUserByUsername, { handleFetch } from "../fetchHandl";
+import { handleFetch } from "../fetchHandl";
 
 function Register() {
   const { setCurrentUser } = useContext(UserContext);
@@ -33,8 +33,10 @@ function Register() {
       setError("The name should contain only letters");
       return;
     }
-
-    const isExist = await getUserByUsername(newUser.username);
+    const isExist = await handleFetch(
+      `/users?username=${newUser.username}`,
+      "GET"
+    );
     console.log(isExist);
     if (isExist[0]) {
       console.log("found");
@@ -51,27 +53,6 @@ function Register() {
     } catch (error) {
       console.error("Error posting data:", error);
     }
-
-    // try {
-    //   const response = await fetch("http://localhost:3000/users", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(newUser),
-    //   });
-
-    //   if (!response.ok) {
-    //     throw new Error(`HTTP error! Status: ${response.status}`);
-    //   }
-
-    //   const result = await response.json();
-    //   console.log("Data posted successfully:", result);
-    //   setCurrentUser(result);
-    //   navigate("/home");
-    // } catch (error) {
-    //   console.error("Error posting data:", error);
-    // }
   };
 
   return (

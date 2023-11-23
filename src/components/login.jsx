@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
-import getUserByUsername from "../fetchHandl";
+import { handleFetch } from "../fetchHandl";
 
 function Login() {
   const [newUser, setNewUser] = useState({ username: "", website: "" });
@@ -13,15 +13,16 @@ function Login() {
     e.preventDefault();
 
     try {
-      let [userFromServer] = await getUserByUsername(newUser.username);
-      
+      let [userFromServer] = await handleFetch(
+        `/users?username=${newUser.username}`,
+        "GET"
+      );
 
       if (!userFromServer) {
         throw new Error(
           "Username or password are incorrect. Please try again."
         );
       } else {
-        
         setCurrentUser(userFromServer);
         alert("Logged in successfully. Welcome!");
         navigate("profile");

@@ -28,7 +28,9 @@ function ViewPost() {
 
   return (
     <div>
-      {showAddComment && <AddComment addCommentToArr={addComment} postId={post.id}/>}
+      {showAddComment && (
+        <AddComment addCommentToArr={addComment} postId={post.id} />
+      )}
       <div>
         {post ? (
           <div>
