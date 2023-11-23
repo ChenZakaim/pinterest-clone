@@ -1,6 +1,6 @@
 import { useContext, useEffect, useMemo, useState } from "react";
-import { UserContext } from "../context/UserContext";
-import { updateItemInfo } from "../fetchHandl";
+import { UserContext } from "../../context/UserContext";
+import { updateItemInfo } from "../../fetchHandl";
 /*id: 0,
     name: "",
     username: "",
@@ -16,13 +16,13 @@ import { updateItemInfo } from "../fetchHandl";
     */
 function Profile() {
   const { user, setCurrentUser } = useContext(UserContext);
-  const [changes, setChanges] = useState({...user});
+  const [changes, setChanges] = useState({ ...user });
   console.log("changes: ", changes);
 
   useEffect(() => {
     setChanges({ ...user });
   }, [user]);
-  console.log('user: ', user);
+  console.log("user: ", user);
 
   function handleChange(e, key) {
     setChanges((prev) => {
@@ -32,12 +32,12 @@ function Profile() {
   async function submitEditInfoForm() {
     setCurrentUser(changes);
 
-    console.log('user: ', user);
+    console.log("user: ", user);
     const response = await updateItemInfo("users", user.id, changes);
-    console.log('Update response:', response);
+    console.log("Update response:", response);
     alert("changes added successfully");
   }
-  
+
   return (
     <>
       <form

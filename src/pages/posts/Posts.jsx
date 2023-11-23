@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { getItemArray } from "../fetchHandl";
-import { UserContext } from "../context/UserContext";
+import { getItemArray } from "../../fetchHandl";
+import { UserContext } from "../../context/UserContext";
 import Post from "./Post";
 import useArrayExtendedState from "../../hooks/useArrayExtendedState";
 import AddPost from "./AddPost";

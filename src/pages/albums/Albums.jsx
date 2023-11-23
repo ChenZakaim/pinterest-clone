@@ -12,8 +12,6 @@ const Albums = () => {
     try {
       handleFetch(`/albums?userId=${user.id}`, "GET", undefined).then(
         (data) => {
-          // console.log("data: ", data);
-
           setAlbums(data);
         }
       );

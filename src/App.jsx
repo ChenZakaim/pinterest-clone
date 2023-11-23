@@ -3,16 +3,16 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import ressetDB from "./resetDB";
 import { UserProvider } from "./context/UserContext";
-import Login from "./components/login";
-import Register from "./components/Register";
+import Login from "./pages/user/login";
+import Register from "./pages/user/Register";
 import Home from "./components/Home";
-import Profile from "./components/Profile";
+import Profile from "./pages/user/Profile";
 import Header from "./components/Header";
-import Albums from "./components/Albums/Albums";
-import Photo from "./components/Albums/Photo";
-import Posts from "./components/Posts";
-import ViewPost from "./components/ViewPost";
-import Todos from "./components/Todos";
+import Albums from "./pages/albums/Albums";
+import Photo from "./pages/albums/Photo";
+import Posts from "./pages/posts/Posts";
+import ViewPost from "./pages/posts/ViewPost";
+import Todos from "./pages/todos/Todos";
 
 function App() {
   useEffect(() => {}, []);
@@ -37,7 +37,7 @@ function App() {
             <Route path="photo/:id" element={<Photo />} />
             <Route path="todos" element={<Todos />} />
           </Route>
-          <Route path="*" element={<h1>page not found...</h1>} />
+          <Route path="/:page" element={<h1>page not found...</h1>} />
         </Routes>
       </UserProvider>
     </BrowserRouter>

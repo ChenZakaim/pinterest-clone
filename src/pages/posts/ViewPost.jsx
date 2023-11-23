@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPostWithComments } from "../fetchHandl";
+import { getPostWithComments } from "../../fetchHandl";
 import Comment from "./Comment";
 import useArrayExtendedState from "../../hooks/useArrayExtendedState";
 import AddComment from "./AddComment";

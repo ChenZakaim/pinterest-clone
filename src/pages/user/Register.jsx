@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import { handleFetch } from "../fetchHandl";
+import { handleFetch } from "../../fetchHandl";
 
 function Register() {
   const { setCurrentUser } = useContext(UserContext);
@@ -57,6 +57,7 @@ function Register() {
 
   return (
     <>
+      <h1>Register</h1>
       <input
         value={newUser.name}
         type="text"

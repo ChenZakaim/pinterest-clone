@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import { UserContext } from "../context/UserContext";
-import Button from "./Button";
+import { UserContext } from "../../context/UserContext";
+// import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
-import { handleFetch } from "../fetchHandl";
+import { handleFetch } from "../../fetchHandl";
 
 function Login() {
   const [newUser, setNewUser] = useState({ username: "", website: "" });
@@ -69,7 +69,7 @@ function Login() {
 
       <hr />
       <h4>-OR-</h4>
-      <Button label="Register" onClick={() => navigate("register")} />
+      <button onClick={() => navigate("register")}>Register</button>
     </>
   );
 }

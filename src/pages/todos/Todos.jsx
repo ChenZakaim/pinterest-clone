@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
-import { UserContext } from "../context/UserContext";
-import { handleFetch } from "../fetchHandl";
+import { UserContext } from "../../context/UserContext";
+import { handleFetch } from "../../fetchHandl";
 import useArrayExtendedState from "../../hooks/useArrayExtendedState";
 
 function Todos() {
@@ -10,7 +10,6 @@ function Todos() {
     title: "",
     completed: false,
   };
-  //   const [todos, setTodos] = useState(null);
   const [todos, setTodos, addTodo, deletTodo, uppTodo] =
     useArrayExtendedState();
   const [newTodo, setNewTodo] = useState({ ...emptyToDo });
@@ -104,6 +103,7 @@ function Todos() {
           <button
             onClick={() => {
               deletTodo(todo.id);
+              handleFetch(`/todos/${todo.id}`, "DELETE");
             }}
           >
             x

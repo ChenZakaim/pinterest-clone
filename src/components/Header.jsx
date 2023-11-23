@@ -5,7 +5,7 @@ import { useContext } from "react";
 function Header() {
   const { user, setCurrentUser } = useContext(UserContext);
 
-  function logOut(){
+  function logOut() {
     localStorage.setItem("user", JSON.stringify(DEFAULT_USER));
     setCurrentUser(DEFAULT_USER);
   }
@@ -13,12 +13,18 @@ function Header() {
     <>
       <nav>
         <NavLink to="/profile">profile</NavLink>- - -
-        <NavLink to="/coments">coments</NavLink>- - -
         <NavLink to="/posts">posts</NavLink>- - -
-        {/* <NavLink to="/search">profile</NavLink> */}
         <NavLink to="/albums">albums</NavLink>- - -
         <NavLink to="/todos">todos</NavLink>- - -
-        <NavLink to="/" onClick={()=>{logOut()}}>log out</NavLink>
+        <NavLink to="/home">home</NavLink>- - -
+        <NavLink
+          to="/"
+          onClick={() => {
+            logOut();
+          }}
+        >
+          log out
+        </NavLink>
       </nav>
       <main>
         <Outlet />

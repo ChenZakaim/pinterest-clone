@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { deleteItemByItsId } from "../fetchHandl";
+import { deleteItemByItsId } from "../../fetchHandl";
 
 function Comment({ comment, deleteCommentFromArr }) {
-    console.log('comment: ', comment);
+  console.log("comment: ", comment);
   async function deleteCommentByItsId(id) {
     let res = await deleteItemByItsId("comments", id);
     alert(res);
@@ -14,7 +14,7 @@ function Comment({ comment, deleteCommentFromArr }) {
       <p>{comment.body}</p>
       <button
         onClick={() => {
-        //   console.log("comment: ", comment);
+          //   console.log("comment: ", comment);
           console.log("comment.id: ", comment.id);
           deleteCommentByItsId(comment.id);
           deleteCommentFromArr(comment.id);

@@ -113,7 +113,10 @@ export async function handleFetch(url, method, body) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: method === "GET" ? undefined : JSON.stringify(body),
+      body:
+        method === "GET" || method === "DELETE"
+          ? undefined
+          : JSON.stringify(body),
     });
     const data = await response.json();
     console.log("data: ", data);
