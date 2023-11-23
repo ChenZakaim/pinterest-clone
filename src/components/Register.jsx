@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import getUserByUsername from "../fetchHandl";
+import getUserByUsername, { handleFetch } from "../fetchHandl";
 
 function Register() {
   const { setCurrentUser } = useContext(UserContext);
@@ -41,26 +41,37 @@ function Register() {
       setError("The username alredy exist");
       return;
     }
+
     try {
-      const response = await fetch("http://localhost:3000/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUser),
+      handleFetch(`/users`, "POST", newUser).then((data) => {
+        console.log("data: ", data);
+        setCurrentUser(data);
       });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const result = await response.json();
-      console.log("Data posted successfully:", result);
-      setCurrentUser(result);
       navigate("/home");
     } catch (error) {
       console.error("Error posting data:", error);
     }
+
+    // try {
+    //   const response = await fetch("http://localhost:3000/users", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(newUser),
+    //   });
+
+    //   if (!response.ok) {
+    //     throw new Error(`HTTP error! Status: ${response.status}`);
+    //   }
+
+    //   const result = await response.json();
+    //   console.log("Data posted successfully:", result);
+    //   setCurrentUser(result);
+    //   navigate("/home");
+    // } catch (error) {
+    //   console.error("Error posting data:", error);
+    // }
   };
 
   return (

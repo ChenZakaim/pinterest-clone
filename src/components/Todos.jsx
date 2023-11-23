@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import deleteItemByItsId from "../fetchHandl";
+import { handleFetch } from "../fetchHandl";
 
 function Todos() {
   const { user } = useContext(UserContext);
@@ -11,16 +13,16 @@ function Todos() {
   const [todos, setTodos] = useState(null);
   const [newTodo, setNewTodo] = useState({ ...emptyToDo });
   useEffect(() => {
-    const getTodos = async () => {
-      const response = await fetch(
-        `http://localhost:3000/todos?userId=${user.id}`
-      );
-      const data = await response.json();
-      setTodos(data);
-    };
-    getTodos();
+    try {
+      handleFetch(`/todos?userId=${user.id}`, "GET", undefined).then((data) => {
+        // console.log("data: ", data);
+        setTodos(data);
+      });
+    } catch (error) {
+      console.error("Error fetching album data:", error);
+    }
   }, []);
-  console.log(newTodo);
+  //   console.log(newTodo);
   const handleCheckboxChange = async (todoId) => {
     // Find the todo with the given id
     const updatedTodos = todos.map((todo) =>
@@ -30,17 +32,13 @@ function Todos() {
     setTodos(updatedTodos);
 
     try {
-      await fetch(`http://localhost:3000/todos/${todoId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          completed: !todos.find((todo) => todo.id === todoId).completed,
-        }),
+      handleFetch(`/todos/${todoId}`, "PATCH", {
+        completed: !todos.find((todo) => todo.id === todoId).completed,
+      }).then((data) => {
+        console.log("data: ", data);
       });
     } catch (error) {
-      console.error("Error updating completed status:", error);
+      console.error("Error fetching album data:", error);
     }
   };
 
@@ -49,18 +47,16 @@ function Todos() {
   }
   const addTask = async () => {
     setTodos((prev) => [...prev, newTodo]);
-    setNewTodo({ ...emptyToDo });
+
     try {
-      await fetch(`http://localhost:3000/todos`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newTodo),
+      handleFetch(`/todos`, "POST", newTodo).then((data) => {
+        console.log("data: ", data);
       });
     } catch (error) {
-      console.error("Error updating completed status:", error);
+      console.error("Error fetching album data:", error);
     }
+
+    setNewTodo({ ...emptyToDo });
   };
 
   return (
@@ -74,7 +70,14 @@ function Todos() {
             onChange={() => handleCheckboxChange(todo.id)}
           />
           <label htmlFor={`todo-${todo.id}`}>{todo.title}</label>
-          <button>dellet</button>
+          <button
+            onClick={() => {
+              console.log("hloo");
+              deleteItemByItsId("todos", todo.id, setTodos);
+            }}
+          >
+            delet
+          </button>
         </div>
       ))}
       <input

@@ -1,46 +1,37 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, NavLink } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
-// import Album from "./Album";
+import { handleFetch } from "../../fetchHandl";
 
 const Albums = () => {
   const [albums, setAlbums] = useState(null);
   const [myPhotos, setMyPhotos] = useState();
   const { user } = useContext(UserContext);
-  console.log("user: ", user);
-  const { id } = useParams();
-  console.log("id: ", id);
-
+  const { id = 0 } = useParams();
   useEffect(() => {
-    const fetchAlbumData = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/albums?userId=${user.id}`
-        );
-        const data = await response.json();
-        setAlbums(data);
-      } catch (error) {
-        console.error("Error fetching album data:", error);
-      }
-    };
+    try {
+      handleFetch(`/albums?userId=${user.id}`, "GET", undefined).then(
+        (data) => {
+          // console.log("data: ", data);
 
-    fetchAlbumData();
+          setAlbums(data);
+        }
+      );
+    } catch (error) {
+      console.error("Error fetching album data:", error);
+    }
   }, []);
 
   useEffect(() => {
-    const fetchAlbumPhotos = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/photos?albumId=${id}`
-        );
-        const data = await response.json();
-        setMyPhotos(data);
-      } catch (error) {
-        console.error("Error fetching album data:", error);
-      }
-    };
+    try {
+      handleFetch(`/photos?albumId=${id}`, "GET", undefined).then((data) => {
+        console.log("data: ", data);
 
-    fetchAlbumPhotos();
+        setMyPhotos(data);
+      });
+    } catch (error) {
+      console.error("Error fetching album data:", error);
+    }
   }, [id]);
 
   if (!albums) {
