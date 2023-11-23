@@ -19,7 +19,7 @@ export default async function getUserByUsername(username) {
   }
 }
 
-export async function postItemToServer(type, item){
+export async function postItemToServer(type, item) {
   try {
     const response = await fetch(`http://localhost:3000/${type}`, {
       method: "POST",
@@ -64,10 +64,10 @@ export async function updateItemInfo(type, itemId, newItem) {
     return error;
   }
 }
-export async function getItemArray(type, userId) {
+export async function getItemArray(type, userId, page = 1) {
   try {
     const response = await fetch(
-      `http://localhost:3000/${type}?_page=${userId}`
+      `http://localhost:3000/${type}?userId=${userId}&_page=${page}`
     );
     if (!response.ok) {
       if (response.status === 404) {

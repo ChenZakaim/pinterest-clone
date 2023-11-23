@@ -11,7 +11,7 @@ function ViewPost() {
     useArrayExtendedState();
   const [post, setPost] = useState(null);
   const [showComments, setShowComments] = useState(false);
-  const [showAddComment, setShowAddComment] = useState(false); // Corrected variable name
+  const [showAddComment, setShowAddComment] = useState(false);
 
   const params = useParams();
 

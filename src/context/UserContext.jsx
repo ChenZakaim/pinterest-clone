@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 
-const defaultUser = {
+export const DEFAULT_USER = {
   id: 0,
   name: "",
   username: "",
@@ -19,12 +19,12 @@ const defaultUser = {
 };
 
 const UserContext = createContext({
-  user: defaultUser,
+  user: DEFAULT_USER,
   setCurrentUser: () => {},
 });
 
 function UserProvider({ children }) {
-  const [user, setUser] = useState(defaultUser);
+  const [user, setUser] = useState(DEFAULT_USER);
 
   useEffect(() => {
     // Fetch user from localStorage during the initial render
