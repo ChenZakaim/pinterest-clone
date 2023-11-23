@@ -18,6 +18,30 @@ export default async function getUserByUsername(username) {
     return error;
   }
 }
+
+export async function postItemToServer(type, item){
+  try {
+    const response = await fetch(`http://localhost:3000/${type}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(item),
+    });
+    if (!response.ok) {
+      if (response.status === 404) {
+        return "item was not added";
+      }
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Error posting data:", error);
+    return error;
+  }
+}
+
 export async function updateItemInfo(type, itemId, newItem) {
   try {
     const response = await fetch(`http://localhost:3000/${type}/${itemId}`, {
