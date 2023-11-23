@@ -10,6 +10,8 @@ import Profile from "./components/Profile";
 import Header from "./components/Header";
 import Albums from "./components/Albums/Albums";
 import Photo from "./components/Albums/Photo";
+import Posts from "./components/Posts";
+import ViewPost from "./components/ViewPost";
 import Todos from "./components/Todos";
 
 function App() {
@@ -24,9 +26,9 @@ function App() {
           <Route path="/*" element={<Header />}>
             <Route path="home" element={<Home />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="posts" element={<></>}>
-              <Route index element={<></>} />
-              <Route path="post/:id" element={<></>} />
+            <Route path="posts">
+              <Route index element={<Posts />} />
+              <Route path=":id" element={<ViewPost />} />
             </Route>
             <Route path="albums" element={<Albums />}>
               <Route index element={<></>} />

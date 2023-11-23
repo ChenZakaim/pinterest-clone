@@ -41,3 +41,16 @@
 .read-the-docs {
   color: #888;
 }
+.post{
+  width: 50vw;
+  background-color: antiquewhite;
+  border-color: rgb(122, 106, 106);
+  color: black;
+  margin: auto;
+}
+.comments{
+  text-align: justify;
+  background-color: aliceblue;
+  color: black;
+  padding: 1em;
+}
