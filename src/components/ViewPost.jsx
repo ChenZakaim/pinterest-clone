@@ -2,53 +2,71 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPostWithComments } from "../fetchHandl";
 import Comment from "./Comment";
+import useArrayExtendedState from "../../hooks/useArrayExtendedState";
+import AddComment from "./AddComment";
 
+// ...
 function ViewPost() {
-  const [withComments, setWithComments] = useState(null);
-  const params = useParams();
+  const [comments, setComments, addComment, deleteComment, updateComment] =
+    useArrayExtendedState();
+  const [post, setPost] = useState(null);
   const [showComments, setShowComments] = useState(false);
-  let commentsArray;
-  async function getPostComments() {
+  const [showAddComment, setShowAddComment] = useState(false); // Corrected variable name
+
+  const params = useParams();
+
+  async function getData() {
     let postWithComments = await getPostWithComments(params.id);
-    setWithComments(postWithComments);
-    commentsArray = postWithComments["comments"];
+    setComments(postWithComments.comments);
+    setPost(postWithComments);
   }
+
   useEffect(() => {
-    getPostComments();
+    getData();
     console.log("inside use ef");
   }, [params.id, showComments]);
 
   return (
     <div>
-      {withComments ? (
-        <div>
-          <div className="post">
-            <h1>{withComments.title}</h1>
-            <p>{withComments.body}</p>
+      {showAddComment && <AddComment addCommentToArr={addComment} postId={post.id}/>}
+      <div>
+        {post ? (
+          <div>
+            <div className="post">
+              <h1>{post.title}</h1>
+              <p>{post.body}</p>
+            </div>
+            <button
+              onClick={() => {
+                setShowComments((prev) => !prev);
+              }}
+            >
+              {showComments ? "hide comments" : "show comments"}
+            </button>
+            {showComments && (
+              <button onClick={() => setShowAddComment(true)}>
+                add comment
+              </button>
+            )}
+            {showComments &&
+              comments.map((com, key) => {
+                // console.log("com: ", com);
+                return (
+                  <div className="comment" key={key}>
+                    <Comment
+                      comment={com}
+                      deleteCommentFromArr={deleteComment}
+                    />
+                  </div>
+                );
+              })}
           </div>
-          <button
-            onClick={() => {
-              setShowComments((prev) => {
-               return !prev;
-              });
-            }}
-          >
-            {showComments ? "hide comments" : "show comments"}
-          </button>
-          {showComments &&
-            withComments.comments.map((com, key) => {
-              console.log("com: ", com);
-              return (
-                <div className="comment" key={key}>
-                  <Comment comment={com} />
-                </div>
-              );
-            })}
-        </div>
-      ) : (
-        <h2>Loading...</h2>
-      )}
+        ) : (
+          <h2>Loading...</h2>
+        )}
+      </div>
     </div>
   );
 }
+
 export default ViewPost;

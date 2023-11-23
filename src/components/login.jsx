@@ -13,16 +13,16 @@ function Login() {
     e.preventDefault();
 
     try {
-      let [user] = await getUserByUsername(newUser.username);
+      let [userFromServer] = await getUserByUsername(newUser.username);
       
 
-      if (!user) {
+      if (!userFromServer) {
         throw new Error(
           "Username or password are incorrect. Please try again."
         );
       } else {
         
-        setCurrentUser(user);
+        setCurrentUser(userFromServer);
         alert("Logged in successfully. Welcome!");
         navigate("profile");
       }
