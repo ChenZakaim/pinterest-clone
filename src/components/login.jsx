@@ -14,6 +14,7 @@ function Login() {
 
     try {
       let [user] = await getUserByUsername(newUser.username);
+      
 
       if (!user) {
         throw new Error(
