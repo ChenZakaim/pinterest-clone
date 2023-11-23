@@ -54,3 +54,24 @@
   color: black;
   padding: 1em;
 }
+/* .pop-up {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+} */
+/* .pop-up input[type=text], .pop-up input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+} */
+/* .pop-up-componenmt {
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  width: 98vw;
+  height: 98vh;
+  z-index: 10;
+} */

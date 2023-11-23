@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { deleteItemByItsId } from "../fetchHandl";
 
-function Post({ post, reloadPage }) {
+function Post({ post, deleteFromArray }) {
     let navigate = useNavigate();
     function enterSinglePostPage(postId){
         navigate(`./${postId}`);
@@ -9,7 +9,7 @@ function Post({ post, reloadPage }) {
     async function deletePostByPostId(id){
         let res = await deleteItemByItsId("posts", id);
         alert(res);
-        reloadPage();
+        deleteFromArray(id)
     }
 
   return<div className="post">

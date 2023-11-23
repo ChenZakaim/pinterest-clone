@@ -37,7 +37,7 @@ function App() {
             <Route path="photo/:id" element={<Photo />} />
             <Route path="todos" element={<Todos />} />
           </Route>
-          <Route path="" element={<></>} />
+          <Route path="*" element={<h1>page not found...</h1>} />
         </Routes>
       </UserProvider>
     </BrowserRouter>

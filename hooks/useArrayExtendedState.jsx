@@ -3,12 +3,6 @@ import { useState } from "react";
 function useArrayExtendedState() {
   const [stateArr, setStateArr] = useState([]);
 
-  function deleteFromStateArray(itemId) {
-    console.log("inside delItem");
-    const newArr = stateArr.filter((item) => item.id !== itemId);
-    console.log('newArr: ', newArr);
-    setStateArr(newArr);
-  }
   function addItemToArr(item) {
     console.log("inside addItem");
     setStateArr((prev) => {
@@ -19,6 +13,14 @@ function useArrayExtendedState() {
       return newArr;
     });
   }
+
+  function deleteFromStateArray(itemId) {
+    console.log("inside delItem");
+    const newArr = stateArr.filter((item) => item.id !== itemId);
+    console.log("newArr: ", newArr);
+    setStateArr(newArr);
+  }
+  
   function updateItem(id, newItem) {
     console.log("inside updItem");
     setStateArr((prev) => {
