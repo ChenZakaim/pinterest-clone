@@ -74,6 +74,7 @@ function Todos() {
             onChange={() => handleCheckboxChange(todo.id)}
           />
           <label htmlFor={`todo-${todo.id}`}>{todo.title}</label>
+          <button>dellet</button>
         </div>
       ))}
       <input
